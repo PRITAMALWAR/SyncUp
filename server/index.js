@@ -31,6 +31,15 @@ app.use(cors({
     return cb(new Error('Not allowed by CORS'))
   }
 }))
+// Ensure preflight requests receive CORS headers
+app.options('*', cors({
+  credentials: true,
+  origin: (origin, cb) => {
+    if (!origin) return cb(null, true)
+    if (config.clientOrigins?.includes(origin)) return cb(null, true)
+    return cb(new Error('Not allowed by CORS'))
+  }
+}))
 app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
 }))
