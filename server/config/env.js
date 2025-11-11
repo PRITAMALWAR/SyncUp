@@ -8,7 +8,7 @@ const parseOrigins = (val) => {
 
 export const config = {
   port: process.env.PORT || 5000,
-  mongoUri: process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/syncup',
+  mongoUri: process.env.MONGODB_URI || (process.env.NODE_ENV === 'production' ? '' : 'mongodb://127.0.0.1:27017/syncup'),
   jwtSecret: process.env.JWT_SECRET || 'dev_secret_change_me',
   clientOrigins: parseOrigins(process.env.CLIENT_ORIGIN),
   uploadDir: process.env.UPLOAD_DIR || 'uploads'
