@@ -32,7 +32,7 @@ app.use(cors({
   }
 }))
 // Ensure preflight requests receive CORS headers
-app.options('*', cors({
+app.options('(.*)', cors({
   credentials: true,
   origin: (origin, cb) => {
     if (!origin) return cb(null, true)
