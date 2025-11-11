@@ -55,20 +55,17 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 app.use('/uploads', express.static(path.join(__dirname, config.uploadDir)))
 
-// API routes
+// routes
 app.use('/api/auth', authRoutes)
 app.use('/api/chats', chatRoutes)
 app.use('/api/messages', messageRoutes)
 app.use('/api/uploads', uploadRoutes)
 app.use('/api/users', userRoutes)
 
-// test route
 app.get('/', (req, res) => res.json({ ok: true, name: 'SyncUp Server' }))
 
-// error handler
 app.use(errorHandler)
 
-// start server
 const start = async () => {
   await connectDB()
   server.listen(config.port, () => {
@@ -77,20 +74,6 @@ const start = async () => {
 }
 
 start()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
