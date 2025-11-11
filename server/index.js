@@ -31,8 +31,8 @@ app.use(cors({
     return cb(new Error('Not allowed by CORS'))
   }
 }))
-// Ensure preflight requests receive CORS headers
-app.options('(.*)', cors({
+// Ensure preflight requests receive CORS headers (match all paths)
+app.options('/:path(*)', cors({
   credentials: true,
   origin: (origin, cb) => {
     if (!origin) return cb(null, true)
