@@ -33,15 +33,12 @@ app.use(cors({
   }
 }))
 
-// ✅ FIXED: Express 5-safe wildcard for preflight (OPTIONS) requests
-app.options('/*', cors({
-  credentials: true,
-  origin: (origin, cb) => {
-    if (!origin) return cb(null, true)
-    if (config.clientOrigins?.includes(origin)) return cb(null, true)
-    return cb(new Error('Not allowed by CORS'))
-  }
-}))
+// ✅ Preflight handling without registering a wildcard path
+// CORS headers are set by the global cors() above; for OPTIONS just return 204
+app.use((req, res, next) => {
+  if (req.method === 'OPTIONS') return res.sendStatus(204)
+  next()
+})
 
 app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
