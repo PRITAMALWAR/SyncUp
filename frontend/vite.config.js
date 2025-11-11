@@ -18,6 +18,6 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
-    outDir: 'dist', // ✅ Explicitly specify Vite’s default output folder
+    outDir: 'dist', 
   },
 })
